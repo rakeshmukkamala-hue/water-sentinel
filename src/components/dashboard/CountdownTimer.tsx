@@ -26,24 +26,24 @@ const CountdownTimer = ({ dayZeroDays, dayZeroDate, isCritical }: CountdownTimer
   const pad = (n: number) => n.toString().padStart(2, '0');
 
   return (
-    <div className={`flex flex-col items-center justify-center py-8 ${isCritical ? 'animate-pulse-critical' : ''}`}>
-      <div className="data-label mb-2">Day Zero Countdown</div>
+    <div className={`flex flex-col items-center justify-center min-h-[50vh] py-10 ${isCritical ? 'animate-pulse-critical' : ''}`}>
+      <div className="data-label mb-3 text-sm tracking-[0.25em]">Day Zero Countdown</div>
       <div className="flex items-baseline gap-1 tabular-nums">
-        <span className="text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-foreground">
+        <span className="text-[72px] md:text-[90px] lg:text-[108px] font-extrabold tracking-tight text-foreground leading-none">
           {days.toLocaleString()}
         </span>
-        <span className="text-xl md:text-2xl font-light text-muted-foreground ml-2">D</span>
-        <span className="text-3xl md:text-4xl font-bold text-foreground">{pad(hrs)}</span>
-        <span className="text-lg text-muted-foreground">:</span>
-        <span className="text-3xl md:text-4xl font-bold text-foreground">{pad(mins)}</span>
-        <span className="text-lg text-muted-foreground">:</span>
-        <span className="text-3xl md:text-4xl font-bold text-foreground">{pad(secs)}</span>
+        <span className="text-2xl md:text-3xl font-light text-muted-foreground ml-3">D</span>
+        <span className="text-4xl md:text-5xl font-bold text-foreground">{pad(hrs)}</span>
+        <span className="text-xl text-muted-foreground">:</span>
+        <span className="text-4xl md:text-5xl font-bold text-foreground">{pad(mins)}</span>
+        <span className="text-xl text-muted-foreground">:</span>
+        <span className="text-4xl md:text-5xl font-bold text-foreground">{pad(secs)}</span>
       </div>
-      <div className="mt-2 text-sm text-muted-foreground font-body">
+      <div className="mt-3 text-base text-muted-foreground font-body">
         Projected: <span className="text-foreground font-semibold">{dayZeroDate}</span>
       </div>
-      <div className="mt-1 text-[10px] text-muted-foreground max-w-md text-center font-body">
-        Day Zero = Extrapolated depletion of utilizable GW/surface water. 
+      <div className="mt-2 text-xs text-muted-foreground max-w-lg text-center font-body">
+        Day Zero = Extrapolated depletion of utilizable GW/surface water.
         Consequences: 70% supply cut, industrial halt, migration waves.
       </div>
     </div>

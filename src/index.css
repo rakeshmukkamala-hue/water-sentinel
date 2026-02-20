@@ -87,16 +87,16 @@
     @apply bg-card border border-border rounded-sm p-4;
   }
   .panel-header {
-    @apply text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3 font-semibold;
+    @apply text-sm uppercase tracking-[0.2em] text-muted-foreground mb-3 font-semibold;
   }
   .data-label {
-    @apply text-[10px] uppercase tracking-[0.15em] text-muted-foreground font-medium;
+    @apply text-xs uppercase tracking-[0.15em] text-muted-foreground font-medium;
   }
   .data-value {
-    @apply text-sm font-semibold text-foreground;
+    @apply text-base font-semibold text-foreground;
   }
   .terminal-text {
-    @apply font-mono text-xs leading-relaxed;
+    @apply font-mono text-sm leading-relaxed;
   }
   .status-live {
     @apply text-[hsl(var(--safe))];
@@ -108,7 +108,7 @@
     @apply text-[hsl(var(--destructive))];
   }
   .indicator-bar {
-    @apply h-2 rounded-full bg-muted overflow-hidden;
+    @apply h-2.5 rounded-full bg-muted overflow-hidden;
   }
   .indicator-fill {
     @apply h-full rounded-full transition-all duration-1000 ease-out;
