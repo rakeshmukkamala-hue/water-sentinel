@@ -22,16 +22,16 @@ const DayZeroProjection = ({ solvency, dayZeroDays }: DayZeroProjectionProps) =>
           const isLast = i === stages.length - 1;
           return (
             <div key={s.label} className="flex-1 flex flex-col items-center relative">
-              <div className={`w-2.5 h-2.5 rounded-full ${
-                i === 0 ? 'bg-primary' : i === 3 ? 'bg-destructive' : 'bg-warning'
+              <div className={`w-3 h-3 rounded-full ${
+                i === 0 ? 'bg-primary' : i === 3 ? 'bg-foreground' : 'bg-warning'
               }`} />
               {!isLast && (
-                <div className="absolute top-1 left-1/2 w-full h-px bg-border" />
+                <div className="absolute top-1.5 left-1/2 w-full h-px bg-border" />
               )}
               <div className="mt-2 text-center">
-                <div className="text-[10px] font-semibold text-foreground">{s.label}</div>
-                <div className="text-[9px] text-muted-foreground tabular-nums">+{s.day}d</div>
-                <div className="text-[8px] text-muted-foreground">{s.threshold}</div>
+                <div className="text-xs font-semibold text-card-foreground">{s.label}</div>
+                <div className="text-xs text-muted-foreground tabular-nums">+{s.day}d</div>
+                <div className="text-[10px] text-muted-foreground">{s.threshold}</div>
               </div>
             </div>
           );

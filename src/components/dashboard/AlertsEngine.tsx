@@ -23,11 +23,11 @@ const AlertsEngine = ({ city, dayZeroDays }: AlertsEngineProps) => {
   return (
     <div className="panel">
       <div className="panel-header">Alerts & Recommendations</div>
-      <div className="space-y-1 max-h-40 overflow-y-auto terminal-text">
+      <div className="space-y-1.5 max-h-40 overflow-y-auto terminal-text">
         {alerts.map((a, i) => (
           <div key={i} className="flex gap-2">
             <span className={`${levelClass(a.level)} font-semibold shrink-0`}>[{a.level}]</span>
-            <span className="text-foreground/80">{a.msg}</span>
+            <span className="text-card-foreground/80">{a.msg}</span>
           </div>
         ))}
       </div>

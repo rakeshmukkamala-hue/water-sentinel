@@ -9,13 +9,14 @@ import SelectPage from "./pages/SelectPage";
 import Index from "./pages/Index";
 import ExpansionPage from "./pages/ExpansionPage";
 import ReportPage from "./pages/ReportPage";
+import AllocationPage from "./pages/AllocationPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
-  if (isLoading) return <div className="min-h-screen bg-background flex items-center justify-center text-muted-foreground text-sm">Loading...</div>;
+  if (isLoading) return <div className="min-h-screen bg-background flex items-center justify-center text-muted-foreground text-base">Loading...</div>;
   if (!user) return <Navigate to="/" replace />;
   return <>{children}</>;
 }
@@ -26,6 +27,7 @@ const AppRoutes = () => (
     <Route path="/select" element={<ProtectedRoute><SelectPage /></ProtectedRoute>} />
     <Route path="/dashboard" element={<ProtectedRoute><Index /></ProtectedRoute>} />
     <Route path="/expansion" element={<ProtectedRoute><ExpansionPage /></ProtectedRoute>} />
+    <Route path="/allocations" element={<ProtectedRoute><AllocationPage /></ProtectedRoute>} />
     <Route path="/report" element={<ReportPage />} />
     <Route path="*" element={<NotFound />} />
   </Routes>

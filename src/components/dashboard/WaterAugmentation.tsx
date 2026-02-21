@@ -28,11 +28,11 @@ const WaterAugmentation = ({ city }: WaterAugmentationProps) => {
       <div className="space-y-3 mb-4">
         {strategies.map(s => (
           <div key={s.title}>
-            <div className="text-[11px] font-semibold text-foreground mb-1">{s.title}</div>
+            <div className="text-sm font-semibold text-card-foreground mb-1">{s.title}</div>
             <div className="space-y-0.5">
               {s.items.map((item, i) => (
-                <div key={i} className="text-[10px] text-foreground/70 font-body flex items-start gap-1.5">
-                  <span className="text-accent mt-0.5">›</span>{item}
+                <div key={i} className="text-sm text-card-foreground/70 font-body flex items-start gap-1.5">
+                  <span className="text-primary mt-0.5">›</span>{item}
                 </div>
               ))}
             </div>
@@ -42,7 +42,7 @@ const WaterAugmentation = ({ city }: WaterAugmentationProps) => {
 
       {city.gwOverdraft > 100 && (
         <div className="p-2 border border-destructive/30 rounded-sm mb-3">
-          <div className="status-critical text-[11px] font-semibold">⚠ Priority: Emergency Aquifer Recharge Required</div>
+          <div className="status-critical text-sm font-semibold">⚠ Priority: Emergency Aquifer Recharge Required</div>
         </div>
       )}
 
@@ -55,21 +55,21 @@ const WaterAugmentation = ({ city }: WaterAugmentationProps) => {
         ].map(s => (
           <div key={s.label}>
             <div className="flex justify-between mb-0.5">
-              <span className="text-[10px] text-foreground">{s.label}</span>
-              <span className="text-[10px] tabular-nums text-primary">{s.val}%</span>
+              <span className="text-sm text-card-foreground">{s.label}</span>
+              <span className="text-sm tabular-nums text-primary">{s.val}%</span>
             </div>
             <input
               type="range" min={0} max={100} value={s.val}
               onChange={e => s.set(Number(e.target.value))}
-              className="w-full h-1 bg-muted rounded-full appearance-none cursor-pointer
-                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:h-2.5
+              className="w-full h-1.5 bg-muted rounded-full appearance-none cursor-pointer
+                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3
                 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer"
             />
           </div>
         ))}
       </div>
 
-      <div className="flex gap-4 text-xs p-2 border-t border-border/50 pt-3">
+      <div className="flex gap-4 text-sm p-2 border-t border-border/50 pt-3">
         <div>
           <div className="data-label">Net Gain</div>
           <div className="font-bold tabular-nums status-live">+{netGain} ML/yr</div>
