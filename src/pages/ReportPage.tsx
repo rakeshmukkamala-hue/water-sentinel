@@ -54,14 +54,14 @@ const ReportPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <header className="flex items-center justify-between px-4 py-3 border-b border-border bg-secondary/50">
+      <header className="flex items-center justify-between px-4 py-3 border-b border-border">
         <div className="flex items-center gap-3">
-          <span className="text-sm tracking-[0.3em] uppercase text-muted-foreground font-semibold">HydraShield</span>
-          <span className="text-sm text-primary">// Report Wasteful Usage</span>
+          <span className="text-base tracking-[0.3em] uppercase text-foreground font-semibold">HydraShield</span>
+          <span className="text-base text-primary">// Report Wasteful Usage</span>
         </div>
         <button
           onClick={() => navigate(user ? '/select' : '/')}
-          className="text-xs text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wider"
+          className="text-sm text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wider"
         >
           ← {user ? 'Back to Dashboard' : 'Back to Login'}
         </button>
@@ -69,29 +69,29 @@ const ReportPage = () => {
 
       <main className="flex-1 overflow-y-auto p-6">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl md:text-4xl lg:text-[43px] font-extrabold tracking-tight mb-2">
+          <h1 className="text-3xl md:text-4xl lg:text-[48px] font-extrabold tracking-tight mb-2 text-foreground">
             Report Wasteful Usage
           </h1>
-          <p className="text-sm text-muted-foreground font-body mb-8">
+          <p className="text-base text-muted-foreground font-body mb-8">
             Contribute to national water crisis alerts. Your reports inform regional solvency assessments.
           </p>
 
           {submitted ? (
             <div className="panel p-8 text-center">
-              <div className="text-2xl font-bold text-foreground mb-3">✓ Report Logged</div>
-              <p className="text-sm text-muted-foreground font-body mb-6">
+              <div className="text-3xl font-bold text-card-foreground mb-3">✓ Report Logged</div>
+              <p className="text-base text-muted-foreground font-body mb-6">
                 Your report has been submitted and contributes to national alert systems.
               </p>
               <div className="flex gap-3 justify-center">
                 <button
                   onClick={() => { setSubmitted(false); setDescription(''); setWasteType(''); }}
-                  className="px-4 py-2 border border-border rounded-sm text-xs font-semibold uppercase tracking-wider hover:bg-muted/50 transition-colors"
+                  className="px-4 py-3 border border-border rounded-sm text-sm font-semibold uppercase tracking-wider hover:bg-muted/50 transition-colors text-card-foreground"
                 >
                   Submit Another
                 </button>
                 <button
                   onClick={() => navigate(user ? '/select' : '/')}
-                  className="px-4 py-2 bg-primary text-primary-foreground rounded-sm text-xs font-semibold uppercase tracking-wider hover:opacity-90 transition-opacity"
+                  className="px-4 py-3 bg-primary text-primary-foreground rounded-sm text-sm font-semibold uppercase tracking-wider hover:opacity-90 transition-opacity"
                 >
                   Go to Dashboard
                 </button>
@@ -105,7 +105,7 @@ const ReportPage = () => {
                   {user && (
                     <div>
                       <label className="data-label block mb-1">Logged in as</label>
-                      <div className="text-sm text-foreground">{user.name} ({user.email})</div>
+                      <div className="text-base text-card-foreground">{user.name} ({user.email})</div>
                     </div>
                   )}
                   <div>
@@ -114,7 +114,7 @@ const ReportPage = () => {
                       value={state}
                       onChange={e => { setState(e.target.value); setCity(''); }}
                       required
-                      className="w-full bg-secondary/50 border border-border rounded-sm px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary"
+                      className="w-full bg-muted border border-border rounded-sm px-3 py-3 text-base text-foreground focus:outline-none focus:border-primary"
                     >
                       <option value="">Select State</option>
                       {STATES.map(s => (
@@ -128,7 +128,7 @@ const ReportPage = () => {
                       <select
                         value={city}
                         onChange={e => setCity(e.target.value)}
-                        className="w-full bg-secondary/50 border border-border rounded-sm px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary"
+                        className="w-full bg-muted border border-border rounded-sm px-3 py-3 text-base text-foreground focus:outline-none focus:border-primary"
                       >
                         <option value="">Select City</option>
                         {stateData.cities.map(c => (
@@ -143,7 +143,7 @@ const ReportPage = () => {
                       value={wasteType}
                       onChange={e => setWasteType(e.target.value)}
                       required
-                      className="w-full bg-secondary/50 border border-border rounded-sm px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary"
+                      className="w-full bg-muted border border-border rounded-sm px-3 py-3 text-base text-foreground focus:outline-none focus:border-primary"
                     >
                       <option value="">Select Type</option>
                       {WASTE_TYPES.map(t => (
@@ -159,14 +159,14 @@ const ReportPage = () => {
                       required
                       maxLength={500}
                       rows={4}
-                      className="w-full bg-secondary/50 border border-border rounded-sm px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary resize-none"
+                      className="w-full bg-muted border border-border rounded-sm px-3 py-3 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary resize-none"
                       placeholder="Describe the water wastage observed..."
                     />
-                    <div className="text-[10px] text-muted-foreground mt-1 text-right">{description.length}/500</div>
+                    <div className="text-xs text-muted-foreground mt-1 text-right">{description.length}/500</div>
                   </div>
                   <button
                     type="submit"
-                    className="w-full py-2.5 bg-primary text-primary-foreground font-semibold text-sm uppercase tracking-wider rounded-sm hover:opacity-90 transition-opacity"
+                    className="w-full py-3 bg-primary text-primary-foreground font-semibold text-base uppercase tracking-wider rounded-sm hover:opacity-90 transition-opacity"
                   >
                     Submit Report
                   </button>
@@ -178,16 +178,16 @@ const ReportPage = () => {
                 <div className="panel-header">Recent Reports — Terminal Log</div>
                 <div className="space-y-2 max-h-96 overflow-y-auto terminal-text">
                   {reports.length === 0 ? (
-                    <div className="text-muted-foreground text-xs">No reports yet. Be the first to contribute.</div>
+                    <div className="text-muted-foreground text-sm">No reports yet. Be the first to contribute.</div>
                   ) : (
                     reports.slice(0, 15).map(r => (
                       <div key={r.id} className="border-b border-border/30 pb-1.5">
                         <div className="flex justify-between">
                           <span className="status-warning">[{r.type.toUpperCase()}]</span>
-                          <span className="text-muted-foreground text-[9px]">{new Date(r.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</span>
+                          <span className="text-muted-foreground text-xs">{new Date(r.timestamp).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</span>
                         </div>
-                        <div className="text-foreground/80 text-[11px] mt-0.5">{r.state} / {r.city}</div>
-                        <div className="text-foreground/60 text-[10px] mt-0.5 truncate">{r.description}</div>
+                        <div className="text-card-foreground/80 text-sm mt-0.5">{r.state} / {r.city}</div>
+                        <div className="text-card-foreground/60 text-xs mt-0.5 truncate">{r.description}</div>
                       </div>
                     ))
                   )}

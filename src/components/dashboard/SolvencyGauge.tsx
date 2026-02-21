@@ -15,7 +15,7 @@ const SolvencyGauge = ({ score }: SolvencyGaugeProps) => {
 
   const radius = 70;
   const circumference = 2 * Math.PI * radius;
-  const arc = circumference * 0.75; // 270 degree arc
+  const arc = circumference * 0.75;
   const offset = arc - (arc * animated) / 100;
 
   const label = getSolvencyLabel(score);
@@ -26,17 +26,15 @@ const SolvencyGauge = ({ score }: SolvencyGaugeProps) => {
       <div className="panel-header">Water Solvency Index</div>
       <div className="relative" style={{ width: 180, height: 140 }}>
         <svg viewBox="0 0 180 140" className="w-full h-full">
-          {/* Background arc */}
           <circle
             cx="90" cy="90" r={radius}
             fill="none"
-            stroke="hsl(var(--muted))"
+            stroke="hsl(var(--border))"
             strokeWidth="8"
             strokeLinecap="round"
             strokeDasharray={`${arc} ${circumference}`}
             transform="rotate(135 90 90)"
           />
-          {/* Value arc */}
           <circle
             cx="90" cy="90" r={radius}
             fill="none"
@@ -50,11 +48,11 @@ const SolvencyGauge = ({ score }: SolvencyGaugeProps) => {
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center pt-2">
-          <span className="text-4xl font-extrabold tabular-nums">{animated}</span>
-          <span className={`text-[10px] font-semibold tracking-wider ${colorClass}`}>{label}</span>
+          <span className="text-5xl font-extrabold tabular-nums text-card-foreground">{animated}</span>
+          <span className={`text-xs font-semibold tracking-wider ${colorClass}`}>{label}</span>
         </div>
       </div>
-      <div className="text-[10px] text-muted-foreground mt-1 font-body text-center max-w-[200px]">
+      <div className="text-xs text-muted-foreground mt-1 font-body text-center max-w-[200px]">
         100 - (0.25×RD + 0.3×GW + 0.2×CE + 0.15×IS + 0.1×CS)
       </div>
     </div>

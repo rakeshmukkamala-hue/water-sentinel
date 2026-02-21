@@ -33,20 +33,20 @@ const CoreIndicators = ({ city }: CoreIndicatorsProps) => {
           return (
             <div key={ind.key}>
               <div className="flex justify-between mb-1">
-                <span className="text-xs text-foreground">{ind.label}</span>
+                <span className="text-sm text-card-foreground">{ind.label}</span>
                 <div className="flex items-center gap-2">
-                  <span className={`text-xs font-bold tabular-nums ${
+                  <span className={`text-sm font-bold tabular-nums ${
                     value > 80 ? 'status-critical' : value > 50 ? 'status-warning' : 'status-live'
                   }`}>
                     {value}%{isOver && '+'}
                   </span>
-                  <span className="data-label">{ind.source}</span>
+                  <span className="data-label text-xs">{ind.source}</span>
                 </div>
               </div>
               <div className="indicator-bar">
                 <div
                   className={`indicator-fill ${
-                    value > 80 ? 'bg-destructive' : value > 50 ? 'bg-warning' : 'bg-safe'
+                    value > 80 ? 'bg-foreground' : value > 50 ? 'bg-warning' : 'bg-primary'
                   }`}
                   style={{ width: animate ? `${capped}%` : '0%' }}
                 />

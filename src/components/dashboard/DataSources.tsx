@@ -34,13 +34,13 @@ const DataSources = ({ city }: DataSourcesProps) => {
         {sources.map(src => (
           <div key={src.name} className="flex items-center justify-between py-1.5 border-b border-border/50 last:border-0">
             <div className="flex flex-col">
-              <span className="text-xs font-semibold">{src.name}</span>
-              <span className="data-label">{src.value}</span>
+              <span className="text-sm font-semibold text-card-foreground">{src.name}</span>
+              <span className="data-label text-xs">{src.value}</span>
             </div>
             <div className="flex items-center gap-2">
               <Sparkline data={src.trend} />
-              <span className={`text-[9px] px-1.5 py-0.5 rounded-sm border ${
-                src.status === 'Live' ? 'border-safe/30 status-live' : 'border-warning/30 status-warning'
+              <span className={`text-xs px-1.5 py-0.5 rounded-sm border ${
+                src.status === 'Live' ? 'border-primary/30 status-live' : 'border-warning/30 status-warning'
               }`}>
                 {src.status}
               </span>

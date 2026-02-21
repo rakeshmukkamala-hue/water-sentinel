@@ -54,7 +54,6 @@ const Index = () => {
   const handleCitySelect = useCallback((name: string) => {
     setSelectedCity(name);
     setInterventions({});
-    // Find which state this city belongs to
     const s = STATES.find(st => st.cities.some(c => c.name === name));
     if (s) setSelectedStateName(s.name);
   }, []);
@@ -63,14 +62,8 @@ const Index = () => {
     setRefreshKey(k => k + 1);
   }, []);
 
-  // Sorted states for sidebar
   const sortedStates = useMemo(() =>
     [...STATES].sort((a, b) => getStateSolvency(a.name) - getStateSolvency(b.name)),
-  []);
-
-  // All cities sorted by solvency for sidebar
-  const sortedCities = useMemo(() =>
-    [...CITIES].sort((a, b) => a.solvency - b.solvency),
   []);
 
   return (
@@ -78,7 +71,7 @@ const Index = () => {
       <Header cityName={`${city.name}, ${city.state}`} onRefresh={handleRefresh} />
 
       {/* Navigation sub-bar */}
-      <div className="flex items-center justify-between px-4 py-1.5 border-b border-border/50 bg-secondary/30 text-xs">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-muted/20 text-sm">
         <div className="flex items-center gap-3">
           <button onClick={() => navigate('/select')} className="text-muted-foreground hover:text-foreground transition-colors">← Location Select</button>
           <span className="text-border">|</span>
@@ -92,7 +85,7 @@ const Index = () => {
                 setInterventions({});
               }
             }}
-            className="bg-transparent border border-border rounded-sm px-2 py-0.5 text-xs text-foreground focus:outline-none focus:border-primary"
+            className="bg-transparent border border-border rounded-sm px-2 py-1 text-sm text-foreground focus:outline-none focus:border-primary"
           >
             {STATES.map(s => (
               <option key={s.code} value={s.name}>{s.name}</option>
@@ -100,6 +93,8 @@ const Index = () => {
           </select>
         </div>
         <div className="flex items-center gap-3">
+          <button onClick={() => navigate('/allocations')} className="text-primary hover:text-foreground transition-colors font-semibold uppercase tracking-wider text-xs">Allocations</button>
+          <span className="text-border">|</span>
           <button onClick={() => navigate('/report')} className="text-muted-foreground hover:text-primary transition-colors">Report Wastage</button>
           <button onClick={logout} className="text-muted-foreground hover:text-foreground transition-colors">Logout</button>
         </div>
@@ -107,7 +102,7 @@ const Index = () => {
 
       <div className="flex flex-1 overflow-hidden">
         {/* Left Sidebar */}
-        <aside className="w-64 shrink-0 border-r border-border overflow-y-auto p-3 bg-secondary/20 hidden md:block">
+        <aside className="w-64 shrink-0 border-r border-border overflow-y-auto p-3 bg-muted/10 hidden md:block">
           <div className="panel-header mb-2">Nationwide — By State</div>
           <div className="space-y-0.5 mb-4 max-h-[30vh] overflow-y-auto">
             {sortedStates.map((state, i) => {
@@ -122,7 +117,7 @@ const Index = () => {
                       setInterventions({});
                     }
                   }}
-                  className={`w-full flex items-center justify-between px-2 py-1 rounded-sm text-[11px] transition-colors ${
+                  className={`w-full flex items-center justify-between px-2 py-1.5 rounded-sm text-sm transition-colors ${
                     state.name === selectedStateName ? 'bg-primary/10 border border-primary/30' : 'hover:bg-muted/50'
                   }`}
                 >
@@ -135,7 +130,6 @@ const Index = () => {
             })}
           </div>
 
-          {/* City list for selected state */}
           {stateData && (
             <>
               <div className="panel-header mb-2">{stateData.name} — Cities</div>
@@ -144,7 +138,7 @@ const Index = () => {
                   <button
                     key={c.name}
                     onClick={() => handleCitySelect(c.name)}
-                    className={`w-full flex items-center justify-between px-2 py-1.5 rounded-sm text-xs transition-colors ${
+                    className={`w-full flex items-center justify-between px-2 py-1.5 rounded-sm text-sm transition-colors ${
                       c.name === selectedCity ? 'bg-primary/10 border border-primary/30' : 'hover:bg-muted/50'
                     }`}
                   >
@@ -152,8 +146,8 @@ const Index = () => {
                       {c.name}
                     </span>
                     <div className="flex items-center gap-2">
-                      <span className={`text-[10px] font-bold ${getSolvencyClass(c.solvency)}`}>{c.solvency}</span>
-                      <span className="text-muted-foreground text-[9px]">{getSolvencyLabel(c.solvency)}</span>
+                      <span className={`text-xs font-bold ${getSolvencyClass(c.solvency)}`}>{c.solvency}</span>
+                      <span className="text-muted-foreground text-xs">{getSolvencyLabel(c.solvency)}</span>
                     </div>
                   </button>
                 ))}
@@ -165,7 +159,7 @@ const Index = () => {
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto">
           {/* Countdown - Ultra Dominant */}
-          <div className="border-b border-border bg-secondary/10">
+          <div className="border-b border-border">
             <CountdownTimer
               dayZeroDays={dayZeroDays}
               dayZeroDate={city.dayZeroDate}
@@ -175,49 +169,48 @@ const Index = () => {
 
           {/* Dashboard Grid */}
           <div className="p-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
-            {/* Gauge + Indicators */}
             <div className="space-y-3">
               <SolvencyGauge score={solvency} />
               <CoreIndicators city={city} />
               <DayZeroProjection solvency={solvency} dayZeroDays={dayZeroDays} />
             </div>
 
-            {/* Middle Column */}
             <div className="space-y-3">
               <AlertsEngine city={city} dayZeroDays={dayZeroDays} />
               <InterventionSimulator city={city} onInterventionChange={setInterventions} />
               <HistoricalTrend city={city} />
             </div>
 
-            {/* Right Column */}
             <div className="space-y-3">
               <DataSources city={city} />
               <PreventiveMeasures city={city} />
 
-              {/* Water Augmentation as small button → modal + link to full page */}
               <Dialog>
                 <DialogTrigger asChild>
-                  <button className="w-full py-2.5 px-4 border border-border rounded-sm text-xs font-semibold uppercase tracking-wider hover:bg-accent/10 transition-colors text-primary flex items-center justify-between">
-                    <span>Expansion Strategies</span>
-                    <span className="text-muted-foreground text-[9px]">Click to preview</span>
+                  <button className="w-full py-3 px-4 border border-primary rounded-sm text-sm font-semibold uppercase tracking-wider hover:bg-primary/10 transition-colors text-primary flex items-center justify-between">
+                    <span>Expansion Strategies →</span>
+                    <span className="text-muted-foreground text-xs">Click to preview</span>
                   </button>
                 </DialogTrigger>
                 <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-card">
                   <DialogHeader>
-                    <DialogTitle className="text-lg font-bold">Water Resource Expansion — {city.name}</DialogTitle>
+                    <DialogTitle className="text-xl font-bold text-card-foreground">Water Resource Expansion — {city.name}</DialogTitle>
                   </DialogHeader>
                   <WaterAugmentation city={city} />
                   <button
                     onClick={() => navigate(`/expansion?state=${encodeURIComponent(selectedStateName)}&city=${encodeURIComponent(selectedCity)}`)}
-                    className="w-full py-2.5 bg-primary text-primary-foreground font-semibold text-xs uppercase tracking-wider rounded-sm hover:opacity-90 transition-opacity mt-2"
+                    className="w-full py-3 bg-primary text-primary-foreground font-semibold text-sm uppercase tracking-wider rounded-sm hover:opacity-90 transition-opacity mt-2"
                   >
                     Full View →
                   </button>
                 </DialogContent>
               </Dialog>
-
-              <ReportGenerator city={city} solvency={solvency} dayZeroDays={dayZeroDays} />
             </div>
+          </div>
+
+          {/* Fixed Report Button at Bottom */}
+          <div className="sticky bottom-0 left-0 right-0 z-30">
+            <ReportGenerator city={city} solvency={solvency} dayZeroDays={dayZeroDays} />
           </div>
         </main>
       </div>

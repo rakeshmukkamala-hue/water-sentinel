@@ -5,7 +5,6 @@ interface HistoricalTrendProps {
 }
 
 const HistoricalTrend = ({ city }: HistoricalTrendProps) => {
-  // Simulated 12-month historical solvency
   const base = city.solvency;
   const data = Array.from({ length: 12 }, (_, i) => {
     const seasonal = Math.sin((i / 12) * Math.PI * 2) * 8;
@@ -32,7 +31,6 @@ const HistoricalTrend = ({ city }: HistoricalTrendProps) => {
     <div className="panel">
       <div className="panel-header">12-Month Solvency Trend — {city.name}</div>
       <svg viewBox={`0 0 ${w} ${h}`} className="w-full" style={{ height: 100 }}>
-        {/* Grid lines */}
         {[25, 50, 75].map(v => {
           const y = h - pad - ((v - min) / range) * (h - pad * 2);
           return (
@@ -42,14 +40,12 @@ const HistoricalTrend = ({ city }: HistoricalTrendProps) => {
             </g>
           );
         })}
-        {/* Month labels */}
         {months.map((m, i) => {
           const x = pad + (i / 11) * (w - pad * 2);
           return (
             <text key={m} x={x} y={h - 4} textAnchor="middle" fill="hsl(var(--muted-foreground))" fontSize="5" fontFamily="JetBrains Mono">{m}</text>
           );
         })}
-        {/* Line */}
         <polyline
           points={points}
           fill="none"
@@ -57,7 +53,6 @@ const HistoricalTrend = ({ city }: HistoricalTrendProps) => {
           strokeWidth="2"
           strokeLinejoin="round"
         />
-        {/* Current dot */}
         {(() => {
           const x = pad + (11 / 11) * (w - pad * 2);
           const y = h - pad - ((base - min) / range) * (h - pad * 2);
